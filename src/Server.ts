@@ -1,15 +1,19 @@
 import express from "express";
 import config from "./config";
+import applyMiddleware from "./middleware";
 
 class Server {
   public app: express.Application;
   constructor() {
-    this.app = express.application;
+    this.app = express();
     this.init();
   }
   private init() {
-    // Initialize middleware here
     console.log("Initializing server...");
+    applyMiddleware(this.app);
+    this.app.get("/", (req: express.Request, res: express.Response) =>
+      res.status(200).send("Tythus Gateway.")
+    );
   }
   /**
    * Start the server
