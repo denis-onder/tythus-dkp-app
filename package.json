@@ -1,11 +1,11 @@
 {
   "name": "tythus-dkp-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "description": "Tythus, the Guild/DKP management app!",
+  "main": "dist/services/gateway/index.js",
   "scripts": {
     "start": "tsc && node .",
-    "dev": "ts-node-dev ./src/index.ts"
+    "dev": "ts-node-dev ./src/services/gateway/index.ts"
   },
   "keywords": [],
   "author": "Denis Onder",
@@ -14,7 +14,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongoose": "^5.6.13",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.1",
@@ -23,6 +24,7 @@
     "@types/mocha": "^5.2.7",
     "@types/morgan": "^1.7.37",
     "@types/node": "^12.7.4",
+    "@types/socket.io": "^2.1.2",
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
     "ts-node-dev": "^1.0.0-pre.42",

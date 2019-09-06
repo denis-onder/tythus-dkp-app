@@ -1,27 +1,32 @@
 import express from "express";
-import config from "./config";
+import http from "http";
 import applyMiddleware from "./middleware";
+import io from "socket.io";
 
 class Server {
   public app: express.Application;
+  public io;
+  public server;
   constructor() {
     this.app = express();
+    this.server = new http.Server(this.app);
+    this.io = io(this.server);
     this.init();
   }
   private init() {
     console.log("Initializing server...");
     applyMiddleware(this.app);
     this.app.get("/", (req: express.Request, res: express.Response) =>
-      res.status(200).send("Tythus Gateway.")
+      res.status(200).send("Root")
     );
   }
   /**
    * Start the server
    */
-  public start() {
-    this.app.listen(config.server.port, () =>
+  public start(port, environment) {
+    this.server.listen(port, () =>
       console.log(
-        `Server running!\nEnvironment: ${config.environment}\nAddress: http://localhost:${config.server.port}/`
+        `Server running!\nEnvironment: ${environment}\nAddress: http://localhost:${port}/`
       )
     );
   }
@@ -41,4 +46,4 @@ class Server {
   }
 }
 
-export default new Server();
+export default Server;
