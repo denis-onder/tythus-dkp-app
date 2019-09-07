@@ -15,9 +15,9 @@ class Server {
   }
   private init() {
     console.log("Initializing server...");
-    applyMiddleware(this.app, this.serverName);
+    applyMiddleware(this.app);
     this.app.get("/", (req: express.Request, res: express.Response) =>
-      res.status(200).send("Root")
+      res.status(200).send(`Tythus: ${this.serverName}`)
     );
   }
   /**

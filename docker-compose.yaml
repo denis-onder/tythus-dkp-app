@@ -1,0 +1,30 @@
+version: "3"
+services:
+  auth_db:
+    image: "mongo:latest"
+    ports:
+      - "9101:27017"
+  guild_db:
+    image: "mongo:latest"
+    ports:
+      - "9102:27017"
+  auth:
+    build: "./services/auth"
+    environment:
+      - DB_PORT=9101
+    depends_on:
+      - "auth_db"
+    ports:
+      - "9001:9001"
+  guild:
+    build: "./services/guild"
+    environment:
+      - DB_PORT=9102
+    depends_on:
+      - "guild_db"
+    ports:
+      - "9002:9002"
+  gateway:
+    build: "./services/gateway"
+    ports:
+      - "9000:9000"

@@ -1,11 +1,11 @@
 {
-  "name": "tythus-dkp-app",
+  "name": "tythus-dkp-app_auth",
   "version": "1.0.0",
   "description": "Tythus, the Guild/DKP management app!",
-  "main": "dist/services/gateway/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "start": "tsc && node .",
-    "dev": "ts-node-dev ./src/services/gateway/index.ts"
+    "dev": "ts-node-dev ./src/index.ts"
   },
   "keywords": [],
   "author": "Denis Onder",

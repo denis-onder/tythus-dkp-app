@@ -1,6 +1,6 @@
-import Server from "../../Server";
+import Server from "./Server";
 import config from "./config";
-import ISocketInterface from "../../interfaces/ISocketInterface";
+import ISocketInterface from "./interfaces/ISocketInterface";
 
 class GuildService extends Server {
   constructor() {
@@ -19,4 +19,4 @@ class GuildService extends Server {
   }
 }
 
-export default new GuildService();
+new GuildService().startService();

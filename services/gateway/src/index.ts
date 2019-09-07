@@ -1,16 +1,16 @@
-import Server from "../../Server";
+import Server from "./Server";
 import config from "./config";
-import ISocketInterface from "../../interfaces/ISocketInterface";
+import ISocketInterface from "./interfaces/ISocketInterface";
 
-class AuthService extends Server {
+class Gateway extends Server {
   constructor() {
     super();
-    this.serverName = "Authentication";
+    this.serverName = "Gateway";
   }
   private sockets() {
     console.log("Sockets established!");
     this.io.on("connection", (socket: ISocketInterface) => {
-      // Socket declarations for the authentication service go here
+      // Socket declarations for the gateway go here
     });
   }
   public startService() {
@@ -19,4 +19,4 @@ class AuthService extends Server {
   }
 }
 
-export default new AuthService();
+new Gateway().startService();
