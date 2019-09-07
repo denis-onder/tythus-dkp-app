@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "tsc && node .",
-    "dev": "ts-node-dev ./src/index.ts"
+    "dev": "ts-node-dev ./src/index.ts",
+    "test": "mocha dist/tests/*.test.js"
   },
   "keywords": [],
   "author": "Denis Onder",
