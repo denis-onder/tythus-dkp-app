@@ -2,7 +2,10 @@ import IConfigInterface from "./interfaces/IConfigInterface";
 
 const config: IConfigInterface = {
   server: {
-    port: parseInt(process.env.GUILD_SERVER_PORT) || 8002
+    port: parseInt(process.env.SERVER_PORT) || 8002
+  },
+  database: {
+    port: parseInt(process.env.DB_PORT) || 27017
   },
   environment: process.env.NODE_ENV || "development"
 };
