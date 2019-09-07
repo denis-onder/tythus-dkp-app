@@ -1,4 +1,3 @@
-import Server from "../../Server";
-import config from "../../config";
+import AuthService from "./server";
 
-new Server().start(config.auth.server.port, config.auth.environment);
+AuthService.startService();

@@ -2,15 +2,15 @@ import Server from "../../Server";
 import config from "./config";
 import ISocketInterface from "../../interfaces/ISocketInterface";
 
-class Gateway extends Server {
+class GuildService extends Server {
   constructor() {
     super();
-    this.serverName = "Gateway";
+    this.serverName = "Guild";
   }
   private sockets() {
     console.log("Sockets established!");
     this.io.on("connection", (socket: ISocketInterface) => {
-      // Socket declarations for the gateway go here
+      // Socket declarations for the guild service go here
     });
   }
   public startService() {
@@ -19,4 +19,4 @@ class Gateway extends Server {
   }
 }
 
-export default new Gateway();
+export default new GuildService();
