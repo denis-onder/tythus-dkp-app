@@ -12,17 +12,21 @@
   "author": "Denis Onder",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "mongoose": "^5.6.13",
     "morgan": "^1.9.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/body-parser": "^1.17.1",
     "@types/chai": "^4.2.1",
     "@types/express": "^4.17.1",
     "@types/mocha": "^5.2.7",
+    "@types/mongoose": "^5.5.17",
     "@types/morgan": "^1.7.37",
     "@types/node": "^12.7.4",
     "@types/socket.io": "^2.1.2",
