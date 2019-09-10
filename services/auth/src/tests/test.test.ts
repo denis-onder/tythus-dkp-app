@@ -30,9 +30,17 @@ describe("Authentication Service", () => {
         "username",
         "password",
         "email",
+        "createdAt",
         "_id",
         "__v"
       );
+    });
+  });
+  describe("Login", () => {
+    it("should return an object with the loggedIn and token props", async () => {
+      const res = await testApiCaller("post", "/login", testingAccount);
+      expect(res.status).to.eq(200);
+      expect(res.data).to.include.all.keys("loggedIn", "token");
     });
   });
 });

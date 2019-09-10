@@ -1,5 +1,6 @@
 import Server from "./Server";
 import config from "./config";
+import connectDB from "./config/database";
 import ISocketInterface from "./interfaces/ISocketInterface";
 
 class AuthService extends Server {
@@ -14,6 +15,8 @@ class AuthService extends Server {
     });
   }
   public startService() {
+    // tslint:disable-next-line: member-ordering
+    connectDB();
     this.start(config.server.port, config.environment);
     this.sockets();
   }

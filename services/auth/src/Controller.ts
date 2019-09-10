@@ -13,19 +13,23 @@ class Controller {
       // Check if an user exists
       const user = await User.findOne({ email: req.body.email });
       // If the user does exist, send out a 403
-      if (!user) {
+      if (user) {
         return res
           .status(403)
           .json({ error: `Email ${req.body.email} is already in use.` });
       }
       // If there is no user, hash the provided password and save the user
-      await new User({
-        name: req.body.username,
+      const newUser: any = new User({
+        username: req.body.username,
         email: req.body.email,
-        password: hashSync(req.body.password, `${config.secretOrKey}`)
-      }).save();
-      console.log(`User ${req.body.username} has registered.`);
+        password: hashSync(req.body.password, 10)
+      });
+      await newUser.save();
+      // tslint:disable-next-line:no-shadowed-variable
+      res.status(200).json(newUser);
+      console.log(`User ${newUser.username} has registered.`);
     } catch (error) {
+      console.error(error);
       res.status(500).json(error);
     }
   }
@@ -62,7 +66,7 @@ class Controller {
           if (err) {
             return res.status(500).json(err);
           }
-          return res.status(200).json({
+          res.status(200).json({
             loggedIn: true,
             token: `Bearer ${token}`
           });
@@ -75,11 +79,11 @@ class Controller {
   /**
    * Edit an existing user
    */
-  public edit() {}
+  // public edit() {}
   /**
    * Delete an existing user
    */
-  public delete() {}
+  // public delete() {}
 }
 
 export default new Controller();

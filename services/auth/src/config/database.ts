@@ -8,7 +8,7 @@ const connectionURI =
 
 export default () =>
   connect(
-    `${connectionURI}`,
+    connectionURI,
     { useNewUrlParser: true },
     err => {
       if (err) {

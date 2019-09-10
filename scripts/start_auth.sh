@@ -1,2 +1,10 @@
 #!/bin/bash
-cd ./services/auth && npm start
+
+cd ./services/auth
+if [ ! -d "dist" ]; then
+  mkdir dist
+fi
+if [ -f ".env" ]; then
+  cp ./.env ./dist
+fi
+npm start

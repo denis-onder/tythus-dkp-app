@@ -1,6 +1,6 @@
+// tslint:disable: radix
 import IConfigInterface from "../interfaces/IConfigInterface";
 
-// Dotenv
 // tslint:disable-next-line: no-var-requires
 require("dotenv").config();
 
