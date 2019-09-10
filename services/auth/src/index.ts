@@ -19,4 +19,8 @@ class AuthService extends Server {
   }
 }
 
-new AuthService().startService();
+const server = new AuthService();
+
+server.startService();
+
+export default server;
