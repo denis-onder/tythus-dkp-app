@@ -11,19 +11,20 @@ class Controller {
   public async register(req: Request, res: Response) {
     try {
       // Check if an user exists
-      const user = await User.findOne({ username: req.body.name });
-      // If the user does not exist, send out a 404
+      const user = await User.findOne({ email: req.body.email });
+      // If the user does exist, send out a 403
       if (!user) {
         return res
-          .status(404)
-          .json({ error: `User ${req.body.name} does not exist.` });
+          .status(403)
+          .json({ error: `Email ${req.body.email} is already in use.` });
       }
       // If there is no user, hash the provided password and save the user
       await new User({
-        name: req.body.name,
+        name: req.body.username,
+        email: req.body.email,
         password: hashSync(req.body.password, `${config.secretOrKey}`)
       }).save();
-      console.log(`User ${req.body.name} has registered.`);
+      console.log(`User ${req.body.username} has registered.`);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -34,12 +35,12 @@ class Controller {
   public async login(req: Request, res: Response) {
     try {
       // Check if an user exists
-      const user: any = await User.findOne({ username: req.body.username });
+      const user: any = await User.findOne({ email: req.body.email });
       // If the user does not exist, send out a 404
       if (!user) {
         return res
           .status(404)
-          .json({ error: `User ${req.body.username} does not exist.` });
+          .json({ error: `Email ${req.body.email} is not in use.` });
       }
       // Compare passwords
       const match = await compareSync(req.body.password, user.password);
@@ -49,7 +50,8 @@ class Controller {
       }
       // Send out an authorization token with the necessary payload
       const payload = {
-        id: user._id
+        id: user._id,
+        email: user.email
       };
       jwt.sign(
         payload,
