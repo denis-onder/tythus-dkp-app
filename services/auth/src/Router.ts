@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 import Controller from "./Controller";
 import validateInput from "./middleware/validateInput";
+import validateToken from "./middleware/validateToken";
 
 class Router {
   public initialize(app: Application) {
@@ -10,8 +11,12 @@ class Router {
     app.post("/login", validateInput, (req: Request, res: Response) =>
       Controller.login(req, res)
     );
-    // app.put('/edit', (req: Request, res: Response) => Controller.edit(req, res))
-    // app.delete('/delete', (req: Request, res: Response) => Controller.delete(req, res))
+    app.put("/edit", validateToken, (req: Request, res: Response) =>
+      Controller.edit(req, res)
+    );
+    app.delete("/delete", validateToken, (req: Request, res: Response) =>
+      Controller.delete(req, res)
+    );
   }
 }
 

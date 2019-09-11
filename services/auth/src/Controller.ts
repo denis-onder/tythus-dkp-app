@@ -25,7 +25,6 @@ class Controller {
         password: hashSync(req.body.password, 10)
       });
       await newUser.save();
-      // tslint:disable-next-line:no-shadowed-variable
       res.status(200).json(newUser);
       console.log(`User ${newUser.username} has registered.`);
     } catch (error) {
@@ -79,11 +78,35 @@ class Controller {
   /**
    * Edit an existing user
    */
-  // public edit() {}
+  public async edit(req: any, res: Response) {
+    try {
+      // Check if an user exists
+      const user: any = await User.findById(req.user.id);
+      // If there's no user, send out a 404
+      if (!user) {
+        return res.status(404).json({ error: "User not found." });
+      }
+      // Modify the document, save it and return it to the user
+      user.username = req.body.username;
+      user.email = req.body.email;
+      await user.save();
+      res.status(200).json(user);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   /**
    * Delete an existing user
    */
-  // public delete() {}
+  public async delete(req: any, res: Response) {
+    // Check if an user exists
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    await user.remove();
+    res.status(200).json({ deleted: true, timestamp: Date.now() });
+  }
 }
 
 export default new Controller();
