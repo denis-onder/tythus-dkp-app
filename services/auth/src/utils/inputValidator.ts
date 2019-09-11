@@ -51,6 +51,26 @@ class Validator {
     }
     return this.checkForErrors();
   }
+  /**
+   * Validate editing input
+   */
+  public edit(data: IValdationTestingInterface) {
+    this.resetErrors();
+    if (data.username === "" || data.username === " ") {
+      this.errors.usernameEmpty = "An username is required.";
+    }
+    if (data.username.length < 6) {
+      this.errors.usernameLength =
+        "Your username is supposed to be longer than 6 characters.";
+    }
+    if (data.email === "" || data.email === " ") {
+      this.errors.emailEmpty = "An email address is required.";
+    }
+    if (!this.emailRegexPattern.test(data.email)) {
+      this.errors.emailInvalid = "Your email address is not valid.";
+    }
+    return this.checkForErrors();
+  }
   private checkForErrors() {
     if (Object.keys(this.errors).length > 0) {
       return this.errors;

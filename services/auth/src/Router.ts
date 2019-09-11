@@ -11,8 +11,11 @@ class Router {
     app.post("/login", validateInput, (req: Request, res: Response) =>
       Controller.login(req, res)
     );
-    app.put("/edit", validateToken, (req: Request, res: Response) =>
-      Controller.edit(req, res)
+    app.put(
+      "/edit",
+      validateToken,
+      validateInput,
+      (req: Request, res: Response) => Controller.edit(req, res)
     );
     app.delete("/delete", validateToken, (req: Request, res: Response) =>
       Controller.delete(req, res)
