@@ -1,26 +1,26 @@
+import { Request, Response } from "express";
+
 class Controller {
   /**
    * Create a new guild
    */
-  public create() {}
+  public createGuild(req: Request, res: Response) {}
   /**
    * Add a new member
    */
-  public addMember() {}
+  public addMember(req: Request, res: Response) {}
   /**
    * Change member role
    */
-  public changeRole() {}
+  public changeRole(req: Request, res: Response) {}
   /**
-   * Add DKP to member
+   * Modify DKP values of a member
    */
-  public addDKP() {}
-  /**
-   * Remove DKP from member
-   */
-  public removeDKP() {}
+  public modDKP(req: Request, res: Response) {}
   /**
    * Remove an existing member
    */
-  public removeMember() {}
+  public removeMember(req: Request, res: Response) {}
 }
+
+export default new Controller();
