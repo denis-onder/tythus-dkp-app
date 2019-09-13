@@ -74,7 +74,7 @@ describe("Authentication Service", () => {
     });
   });
   describe("Delete", () => {
-    it("should return an object with the username, password, email, time of creation and ID", async () => {
+    it("should return an object with the deleted prop and a timestamp", async () => {
       const token = await getToken(
         editedTestingAccount.email,
         editedTestingAccount.password
