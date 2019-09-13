@@ -1,9 +1,12 @@
 export default interface IConfigInterface {
   server: {
-    port: Number;
+    port: number;
   };
   database: {
-    port: Number;
+    uri?: string;
+    port: number;
+    name: string;
   };
-  environment: String;
+  environment: string;
+  secretOrKey?: string;
 }

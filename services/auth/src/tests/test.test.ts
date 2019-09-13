@@ -1,4 +1,4 @@
-import { assert, expect } from "chai";
+import { expect } from "chai";
 import checkPorts from "../utils/checkPorts";
 import testApiCaller from "../utils/testApiCaller";
 import getToken from "../utils/getToken";

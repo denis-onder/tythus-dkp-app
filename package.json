@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "test": "cd ./services/auth && npm test"
+    "test": "cd ./services/auth && npm test && cd ../guild && npm test"
   }
 }

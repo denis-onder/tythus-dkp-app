@@ -40,8 +40,9 @@ class Server {
       exitCode = 1;
     }
     console.log(
-      exitCode === 0 ? "Server shutting down." : "An error has occured!\n",
-      error
+      exitCode === 0
+        ? "Server shutting down."
+        : `An error has occured!\n${error}`
     );
     process.exit(exitCode);
   }

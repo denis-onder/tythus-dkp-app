@@ -1,5 +1,6 @@
 import Server from "./Server";
 import config from "./config";
+import connectDB from "./config/database";
 import ISocketInterface from "./interfaces/ISocketInterface";
 
 class GuildService extends Server {
@@ -14,9 +15,14 @@ class GuildService extends Server {
     });
   }
   public startService() {
+    connectDB();
     this.start(config.server.port, config.environment);
     this.sockets();
   }
 }
 
-new GuildService().startService();
+const server = new GuildService();
+
+server.startService();
+
+export default server;
