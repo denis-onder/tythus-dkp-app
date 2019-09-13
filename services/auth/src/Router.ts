@@ -20,6 +20,9 @@ class Router {
     app.delete("/delete", validateToken, (req: Request, res: Response) =>
       Controller.delete(req, res)
     );
+    app.get("/find", (req: Request, res: Response) =>
+      Controller.findUserViaID(req, res)
+    );
   }
 }
 

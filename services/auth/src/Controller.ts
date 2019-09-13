@@ -107,6 +107,20 @@ class Controller {
     await user.remove();
     res.status(200).json({ deleted: true, timestamp: Date.now() });
   }
+  /**
+   * Find an user via ID
+   */
+  public async findUserViaID(req: any, res: Response) {
+    // Check if an user exists
+    console.log(req.body);
+    const user: any = await User.findById(req.body.user_id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    res
+      .status(200)
+      .json({ id: user._id, username: user.username, email: user.email });
+  }
 }
 
 export default new Controller();

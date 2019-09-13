@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import checkPorts from "../utils/checkPorts";
-import testApiCaller from "../utils/testApiCaller";
+import apiCaller from "../utils/apiCaller";
 import getToken from "../utils/getToken";
 import server from "../index";
 
@@ -17,7 +17,11 @@ before(() => {
 describe("Guild Service", () => {
   describe("Test", () => {
     it("should return 4", async () => {
-      expect(2 + 2).to.eq(4);
+      const res = await apiCaller("auth", "get", "/find", {
+        user_id: "5d7c1439a42f7d336477f67f"
+      });
+      expect(res.status).to.eq(200);
+      expect(res.data).to.include.all.keys("id", "username", "email");
     });
   });
 });

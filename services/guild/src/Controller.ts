@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import Guild from "./models/Guild.model";
 
 class Controller {
   /**
