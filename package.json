@@ -1,8 +1,9 @@
 {
   "scripts": {
     "install": "scripts/install_dependencies.sh",
-    "test": "cd ./services/auth && tsc && npm test",
-    "test:guild": "cd ./services/guild && npm test",
+    "test": "npm run test:auth",
+    "test:auth": "scripts/compile_auth.sh && cd ./services/auth && npm test",
+    "test:guild": "scripts/compile_guild.sh && cd ./services/guild && npm test",
     "start": "cd ./services/auth && npm start && cd ../guild && npm start"
   }
 }

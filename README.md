@@ -4,11 +4,14 @@
 
 ### Requirements
 
-- Node
+- Node.js
+
+- TypeScript
 
 - Docker
 
 - Docker-compose
+
 
 ### Scripts
 

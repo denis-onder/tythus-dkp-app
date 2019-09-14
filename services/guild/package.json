@@ -4,7 +4,7 @@
   "description": "Tythus, the Guild/DKP management app!",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc && node .",
+    "start": "node .",
     "dev": "ts-node-dev ./src/index.ts",
     "test": "mocha dist/tests/*.test.js"
   },
