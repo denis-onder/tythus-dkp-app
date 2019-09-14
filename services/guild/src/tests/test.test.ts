@@ -17,7 +17,7 @@ before(() => {
 describe("Guild Service", () => {
   describe("Test", () => {
     it("should return 4", async () => {
-      const res = await apiCaller("auth", "get", "/find", {
+      const res = await apiCaller("auth", "post", "/find", {
         user_id: "5d7c1439a42f7d336477f67f"
       });
       expect(res.status).to.eq(200);

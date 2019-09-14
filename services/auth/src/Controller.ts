@@ -112,7 +112,6 @@ class Controller {
    */
   public async findUserViaID(req: any, res: Response) {
     // Check if an user exists
-    console.log(req.body);
     const user: any = await User.findById(req.body.user_id);
     if (!user) {
       return res.status(404).json({ error: "User not found." });

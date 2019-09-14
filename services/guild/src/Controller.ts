@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Guild from "./models/Guild.model";
+import axios from "axios";
 
 class Controller {
   /**
@@ -9,7 +10,15 @@ class Controller {
   /**
    * Add a new member
    */
-  public addMember(req: Request, res: Response) {}
+  public addMember(req: Request, res: Response) {
+    axios
+      .post("http://localhost:8001/find", {
+        user_id: "5d7c1439a42f7d336477f67f"
+      })
+      .then(res => res.data)
+      .then(data => res.json(data))
+      .catch(err => res.json(err));
+  }
   /**
    * Change member role
    */
