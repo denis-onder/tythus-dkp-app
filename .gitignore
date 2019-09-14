@@ -2,3 +2,4 @@
 /services/**/dist
 /services/**/.env
 /services/**/src/logs
+package-lock.json

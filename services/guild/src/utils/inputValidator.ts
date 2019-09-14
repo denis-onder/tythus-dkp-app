@@ -6,6 +6,31 @@ class Validator {
   constructor() {
     this.errors = {};
   }
+  /**
+   * Guild creation validation
+   */
+  public createGuild(data: IValdationTestingInterface) {
+    this.resetErrors();
+    if (data.name === "" || data.name === " ") {
+      this.errors.nameEmpty = "Please provide your guild name.";
+    }
+    if (data.realm === "" || data.realm === " ") {
+      this.errors.realmNameEmpty = "Please provide your realm name.";
+    }
+    if (data.name.length <= 2 || data.name.length > 24) {
+      this.errors.nameLength =
+        "Please provide a guild name which is between 3 and 24 characters long.";
+    }
+    if (data.realm.length <= 2 || data.realm.length > 24) {
+      this.errors.realmNameLength =
+        "Please provide a realm name which is between 3 and 24 characters long.";
+    }
+    if (data.region !== "EU" && data.region !== "US" && data.region !== "AS") {
+      this.errors.regionName =
+        "Please provide a proper region name: EU for Europe, US for The Americas and AS for Asia.";
+    }
+    return this.checkForErrors();
+  }
   private checkForErrors() {
     if (Object.keys(this.errors).length > 0) {
       return this.errors;

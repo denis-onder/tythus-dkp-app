@@ -1,5 +1,7 @@
 # Tythus, the Guild/DKP management app!
 
+[![Build Status](https://travis-ci.org/denis-onder/tythus-dkp-app.svg?branch=master)](https://travis-ci.org/denis-onder/tythus-dkp-app)
+
 ### Requirements
 
 - Node
