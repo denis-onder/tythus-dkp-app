@@ -23,8 +23,7 @@ class Controller {
       const newGuild: any = new Guild({
         name: req.body.name,
         realm: req.body.realm,
-        roles: ["Guild Master", ...req.body.roles],
-        members: [...req.body.members]
+        region: req.body.region
       });
       await newGuild.save();
       return res.status(200).json(newGuild);

@@ -9,9 +9,13 @@ const guildSchema = new Schema({
     type: String,
     required: true
   },
+  region: {
+    type: String,
+    required: true
+  },
   roles: {
     type: Array,
-    required: true
+    default: ["Guild Master"]
   },
   members: {
     type: Array,
