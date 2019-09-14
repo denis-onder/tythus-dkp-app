@@ -9,6 +9,10 @@ const guildSchema = new Schema({
     type: String,
     required: true
   },
+  roles: {
+    type: Array,
+    required: true
+  },
   members: {
     type: Array,
     default: []

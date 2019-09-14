@@ -6,19 +6,37 @@ class Controller {
   /**
    * Create a new guild
    */
-  public createGuild(req: Request, res: Response) {}
+  public async createGuild(req: Request, res: Response) {
+    try {
+      // Check if a guild exists on the same realm with the same name
+      const guild = await Guild.findOne({
+        realm: req.body.realm,
+        name: req.body.name
+      });
+      // If a guild already exists, send out an error
+      if (guild) {
+        return res.status(403).json({
+          error: `${req.body.name} - ${req.body.realm} already exists.`
+        });
+      }
+      // Else, create a new guild
+      const newGuild: any = new Guild({
+        name: req.body.name,
+        realm: req.body.realm,
+        roles: ["Guild Master", ...req.body.roles],
+        members: [...req.body.members]
+      });
+      await newGuild.save();
+      return res.status(200).json(newGuild);
+      console.log(`${newGuild.name} - ${newGuild.realm} has been created!`);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   /**
    * Add a new member
    */
-  public addMember(req: Request, res: Response) {
-    axios
-      .post("http://localhost:8001/find", {
-        user_id: "5d7c1439a42f7d336477f67f"
-      })
-      .then(res => res.data)
-      .then(data => res.json(data))
-      .catch(err => res.json(err));
-  }
+  public addMember(req: Request, res: Response) {}
   /**
    * Change member role
    */

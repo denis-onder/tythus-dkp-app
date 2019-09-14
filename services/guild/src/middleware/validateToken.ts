@@ -10,12 +10,13 @@ export default (req: any, res: Response, next: NextFunction) => {
       error.unauthorized = true;
       return res.status(401).json({ error });
     }
-    const user = await apiCaller("auth", "get", "/find", {
+    const user = await apiCaller("auth", "post", "/find", {
       user_id: payload.id
     });
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
+    // TODO: Implement expiration check
     req.user = user;
     next();
   });

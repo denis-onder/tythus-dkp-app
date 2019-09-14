@@ -1,10 +1,11 @@
 import { Application, Request, Response } from "express";
 import Controller from "./Controller";
+import validateToken from "./middleware/validateToken";
 
 // TODO: Write and implement a JWT verification middleware
 class Router {
   public initialize(app: Application) {
-    app.post("/create-guild", (req: Request, res: Response) =>
+    app.post("/create-guild", validateToken, (req: Request, res: Response) =>
       Controller.createGuild(req, res)
     );
     app.post("/add-member", (req: Request, res: Response) =>
