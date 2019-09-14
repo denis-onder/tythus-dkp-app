@@ -1,4 +1,4 @@
 #!/bin/bash
 
 scripts/compile_guild.sh
-npm start
+cd ./services/guild && npm start
