@@ -10,20 +10,20 @@ class Controller {
     try {
       // Check if a guild exists on the same realm with the same name
       const guild = await Guild.findOne({
-        realm: req.body.realm,
+        realm: req.user.realm,
         name: req.body.name
       });
       // If a guild already exists, send out an error
       if (guild) {
         return res.status(403).json({
-          error: `${req.body.name} - ${req.body.realm} already exists.`
+          error: `${req.body.name} - ${req.user.realm} already exists.`
         });
       }
       // Else, create a new guild
       const newGuild: any = new Guild({
         name: req.body.name,
-        realm: req.body.realm,
-        region: req.body.region,
+        realm: req.user.realm,
+        region: req.user.region,
         members: [
           {
             name: req.user.username,
@@ -33,8 +33,8 @@ class Controller {
         ]
       });
       await newGuild.save();
-      return res.status(200).json(newGuild);
       console.log(`${newGuild.name} - ${newGuild.realm} has been created!`);
+      return res.status(200).json(newGuild);
     } catch (error) {
       console.error(error);
     }

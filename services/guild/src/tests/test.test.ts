@@ -28,9 +28,7 @@ describe("Guild Service", () => {
         "post",
         "/create-guild",
         {
-          name: "Test Guild",
-          realm: "Sylvanas",
-          region: "EU"
+          name: "Test Guild"
         },
         token
       );

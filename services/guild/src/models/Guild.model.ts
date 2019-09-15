@@ -1,5 +1,25 @@
 import { Schema, model } from "mongoose";
 
+const memberSchema = new Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  },
+  DKP: {
+    type: Number,
+    default: 0
+  },
+  class: {
+    type: String,
+    required: true
+  }
+});
+
 const guildSchema = new Schema({
   name: {
     type: String,
@@ -15,29 +35,9 @@ const guildSchema = new Schema({
   },
   roles: {
     type: Array,
-    default: ["Guild Master"]
+    default: ["Guild Master", "Officer", "Member", "Recruit"]
   },
-  members: [
-    {
-      name: {
-        type: String,
-        unique: true,
-        required: true
-      },
-      role: {
-        type: String,
-        required: true
-      },
-      DKP: {
-        type: Number,
-        default: 0
-      },
-      class: {
-        type: String,
-        required: true
-      }
-    }
-  ]
+  members: [memberSchema]
 });
 
 export default model("guild", guildSchema);
