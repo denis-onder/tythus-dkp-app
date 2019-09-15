@@ -4,6 +4,11 @@ import apiCaller from "../utils/apiCaller";
 import getToken from "../utils/getToken";
 import server from "../index";
 
+const testAccount = {
+  email: "test@user.com",
+  password: "test1234"
+};
+
 before(() => {
   checkPorts((err, data) => {
     if (err) {
@@ -15,13 +20,31 @@ before(() => {
 });
 
 describe("Guild Service", () => {
-  describe("Test", () => {
-    it("should return 4", async () => {
-      const res = await apiCaller("auth", "post", "/find", {
-        user_id: "5d7c1439a42f7d336477f67f"
-      });
+  describe("Create Guild", () => {
+    it("should should return the guild name, realm, region, roles, members and the other metadata", async () => {
+      const token = await getToken(testAccount.email, testAccount.password);
+      const res = await apiCaller(
+        "guild",
+        "post",
+        "/create-guild",
+        {
+          name: "Test Guild",
+          realm: "Sylvanas",
+          region: "EU"
+        },
+        token
+      );
       expect(res.status).to.eq(200);
-      expect(res.data).to.include.all.keys("id", "username", "email");
+      expect(res.data).to.include.all.keys(
+        "name",
+        "realm",
+        "region",
+        "roles",
+        "members",
+        "createdAt",
+        "_id",
+        "__v"
+      );
     });
   });
 });

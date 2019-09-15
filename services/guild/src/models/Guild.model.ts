@@ -17,10 +17,27 @@ const guildSchema = new Schema({
     type: Array,
     default: ["Guild Master"]
   },
-  members: {
-    type: Array,
-    default: []
-  }
+  members: [
+    {
+      name: {
+        type: String,
+        unique: true,
+        required: true
+      },
+      role: {
+        type: String,
+        required: true
+      },
+      DKP: {
+        type: Number,
+        default: 0
+      },
+      class: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
 
 export default model("guild", guildSchema);

@@ -6,7 +6,7 @@ class Controller {
   /**
    * Create a new guild
    */
-  public async createGuild(req: Request, res: Response) {
+  public async createGuild(req: any, res: Response) {
     try {
       // Check if a guild exists on the same realm with the same name
       const guild = await Guild.findOne({
@@ -23,7 +23,14 @@ class Controller {
       const newGuild: any = new Guild({
         name: req.body.name,
         realm: req.body.realm,
-        region: req.body.region
+        region: req.body.region,
+        members: [
+          {
+            name: req.user.username,
+            role: "Guild Master",
+            class: req.user.class
+          }
+        ]
       });
       await newGuild.save();
       return res.status(200).json(newGuild);
