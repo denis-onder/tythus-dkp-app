@@ -36,6 +36,31 @@ class Validator {
     if (!this.emailRegexPattern.test(data.email)) {
       this.errors.emailInvalid = "Your email address is not valid.";
     }
+    if (data.class === "" || data.class === " ") {
+      this.errors.classEmpty = "Please provide your class.";
+    }
+    if (
+      data.class !== "Warrior" &&
+      data.class !== "Hunter" &&
+      data.class !== "Mage" &&
+      data.class !== "Shaman" &&
+      data.class !== "Warlock" &&
+      data.class !== "Druid" &&
+      data.class !== "Rogue" &&
+      data.class !== "Priest" &&
+      data.class !== "Paladin"
+    ) {
+      this.errors.classInvalid = "Please provide a valid class.";
+    }
+    if (data.realm === "" || data.realm === " ") {
+      this.errors.realmEmpty = "Please provide your realm name.";
+    }
+    if (data.region === "" || data.region === " ") {
+      this.errors.regionEmpty = "Your region is required.";
+    }
+    if (data.region !== "EU" && data.region !== "US" && data.region !== "AS") {
+      this.errors.regionInvalid = "Please provide a valid region.";
+    }
     return this.checkForErrors();
   }
   /**

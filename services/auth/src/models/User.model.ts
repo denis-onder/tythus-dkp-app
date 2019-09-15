@@ -11,11 +11,24 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  class: {
+    type: String,
+    required: true
+  },
+  realm: {
+    type: String,
+    required: true
+  },
+  region: {
+    type: String,
+    required: true
   }
 });
 

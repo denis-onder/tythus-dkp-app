@@ -6,4 +6,9 @@ export default interface IValidationErrorsInterface {
   passwordsNotMatching?: string;
   emailEmpty?: string;
   emailInvalid?: string;
+  classEmpty?: string;
+  classInvalid?: string;
+  realmEmpty?: string;
+  regionEmpty?: string;
+  regionInvalid?: string;
 }

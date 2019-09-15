@@ -3,4 +3,7 @@ export default interface ITestingAccountInterface {
   password: string;
   confirmPassword?: string;
   email?: string;
+  realm?: string;
+  region?: string;
+  class?: string;
 }

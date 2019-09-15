@@ -22,6 +22,9 @@ class Controller {
       const newUser: any = new User({
         username: req.body.username,
         email: req.body.email,
+        class: req.body.class,
+        region: req.body.region,
+        realm: req.body.realm,
         password: hashSync(req.body.password, 10)
       });
       await newUser.save();
@@ -54,7 +57,10 @@ class Controller {
       // Send out an authorization token with the necessary payload
       const payload = {
         id: user._id,
-        email: user.email
+        email: user.email,
+        class: user.class,
+        realm: user.realm,
+        region: user.region
       };
       jwt.sign(
         payload,
@@ -89,6 +95,10 @@ class Controller {
       // Modify the document, save it and return it to the user
       user.username = req.body.username;
       user.email = req.body.email;
+      user.class = req.body.class;
+      user.realm = req.body.realm;
+      user.region = req.body.region;
+      user.password = hashSync(req.body.password, 10);
       await user.save();
       res.status(200).json(user);
     } catch (error) {
@@ -116,9 +126,14 @@ class Controller {
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
-    res
-      .status(200)
-      .json({ id: user._id, username: user.username, email: user.email });
+    res.status(200).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      class: user.class,
+      realm: user.realm,
+      region: user.region
+    });
   }
 }
 
