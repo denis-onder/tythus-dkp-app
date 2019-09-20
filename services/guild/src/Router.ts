@@ -1,11 +1,12 @@
 import { Application, Request, Response } from "express";
 import Controller from "./Controller";
 import validateToken from "./middleware/validateToken";
-import validateInput from "./middleware/validateInput";
+import IRequest from "./interfaces/IRequest";
+// import validateInput from "./middleware/validateInput";
 
 class Router {
   public initialize(app: Application) {
-    app.post("/create-guild", validateToken, (req: Request, res: Response) =>
+    app.post("/create-guild", validateToken, (req: IRequest, res: Response) =>
       Controller.createGuild(req, res)
     );
     app.post("/add-member", (req: Request, res: Response) =>

@@ -11,7 +11,7 @@ export default (req: IRequest, res: Response, next: NextFunction) => {
       error.unauthorized = true;
       return res.status(401).json({ error });
     }
-    const user = await apiCaller("auth", "post", "/find", {
+    const user = await apiCaller("auth", "post", "/find-id", {
       user_id: payload.id
     });
     if (!user) {

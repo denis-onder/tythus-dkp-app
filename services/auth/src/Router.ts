@@ -2,6 +2,7 @@ import { Application, Request, Response } from "express";
 import Controller from "./Controller";
 import validateInput from "./middleware/validateInput";
 import validateToken from "./middleware/validateToken";
+import IRequest from "./interfaces/IRequest";
 
 class Router {
   public initialize(app: Application) {
@@ -15,13 +16,16 @@ class Router {
       "/edit",
       validateToken,
       validateInput,
-      (req: Request, res: Response) => Controller.edit(req, res)
+      (req: IRequest, res: Response) => Controller.edit(req, res)
     );
-    app.delete("/delete", validateToken, (req: Request, res: Response) =>
+    app.delete("/delete", validateToken, (req: IRequest, res: Response) =>
       Controller.delete(req, res)
     );
-    app.post("/find", (req: Request, res: Response) =>
+    app.post("/find-id", (req: Request, res: Response) =>
       Controller.findUserViaID(req, res)
+    );
+    app.post("/find-id", (req: Request, res: Response) =>
+      Controller.findUserViaName(req, res)
     );
   }
 }
