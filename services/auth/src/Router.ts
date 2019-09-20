@@ -2,12 +2,16 @@ import { Application, Request, Response } from "express";
 import Controller from "./Controller";
 import validateInput from "./middleware/validateInput";
 import validateToken from "./middleware/validateToken";
+import verifyUserExistence from "./middleware/verifyUserExistence";
 import IRequest from "./interfaces/IRequest";
 
 class Router {
   public initialize(app: Application) {
-    app.post("/register", validateInput, (req: Request, res: Response) =>
-      Controller.register(req, res)
+    app.post(
+      "/register",
+      validateInput,
+      verifyUserExistence,
+      (req: Request, res: Response) => Controller.register(req, res)
     );
     app.post("/login", validateInput, (req: Request, res: Response) =>
       Controller.login(req, res)

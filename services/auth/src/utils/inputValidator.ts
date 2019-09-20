@@ -61,6 +61,12 @@ class Validator {
     if (data.region !== "EU" && data.region !== "US" && data.region !== "AS") {
       this.errors.regionInvalid = "Please provide a valid region.";
     }
+    if (data.faction === "" || data.faction === " ") {
+      this.errors.factionEmpty = "Please provide your faction.";
+    }
+    if (data.faction !== "Alliance" && data.faction !== "Horde") {
+      this.errors.factionInvalid = "Please provice a valid faction.";
+    }
     return this.checkForErrors();
   }
   /**
@@ -93,6 +99,12 @@ class Validator {
     }
     if (!this.emailRegexPattern.test(data.email)) {
       this.errors.emailInvalid = "Your email address is not valid.";
+    }
+    if (data.faction === "" || data.faction === " ") {
+      this.errors.factionEmpty = "Please provide your faction.";
+    }
+    if (data.faction !== "Alliance" && data.faction !== "Horde") {
+      this.errors.factionInvalid = "Please provice a valid faction.";
     }
     return this.checkForErrors();
   }

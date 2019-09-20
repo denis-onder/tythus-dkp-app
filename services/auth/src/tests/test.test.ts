@@ -12,7 +12,8 @@ const testingAccount: ITestingAccountInterface = {
   email: "testing@account.com",
   class: "Warrior",
   realm: "Sylvanas",
-  region: "EU"
+  region: "EU",
+  faction: "Horde"
 };
 
 const editedTestingAccount = {
@@ -21,7 +22,8 @@ const editedTestingAccount = {
   password: "1234test",
   class: "Hunter",
   realm: "Golemagg",
-  region: "US"
+  region: "US",
+  faction: "Alliance"
 };
 
 before(() => {
@@ -36,7 +38,7 @@ before(() => {
 
 describe("Authentication Service", () => {
   describe("Registration", () => {
-    it("should return the username, password, email, class, realm, region, time of creation and ID", async () => {
+    it("should return the username, password, email, class, realm, region, faction, time of creation and ID", async () => {
       const res = await testApiCaller("post", "/register", testingAccount);
       expect(res.status).to.eq(200);
       expect(res.data).to.include.all.keys(
@@ -47,6 +49,7 @@ describe("Authentication Service", () => {
         "realm",
         "region",
         "createdAt",
+        "faction",
         "_id",
         "__v"
       );
@@ -60,7 +63,7 @@ describe("Authentication Service", () => {
     });
   });
   describe("Edit", () => {
-    it("should return the username, password, email, class, realm, region, time of creation and ID", async () => {
+    it("should return the username, password, email, class, realm, region, faction, time of creation and ID", async () => {
       const token = await getToken(
         testingAccount.email,
         testingAccount.password
@@ -79,6 +82,7 @@ describe("Authentication Service", () => {
         "class",
         "realm",
         "region",
+        "faction",
         "createdAt",
         "_id",
         "__v"

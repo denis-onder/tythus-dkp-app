@@ -26,6 +26,7 @@ class Controller {
         class: req.body.class,
         region: req.body.region,
         realm: req.body.realm,
+        faction: req.body.faction,
         password: hashSync(req.body.password, 10)
       });
       await newUser.save();
@@ -61,7 +62,8 @@ class Controller {
         email: user.email,
         class: user.class,
         realm: user.realm,
-        region: user.region
+        region: user.region,
+        faction: user.faction
       };
       jwt.sign(
         payload,
@@ -100,6 +102,7 @@ class Controller {
       user.realm = req.body.realm;
       user.region = req.body.region;
       user.password = hashSync(req.body.password, 10);
+      user.faction = req.body.faction;
       await user.save();
       res.status(200).json(user);
     } catch (error) {
@@ -133,7 +136,8 @@ class Controller {
       email: user.email,
       class: user.class,
       realm: user.realm,
-      region: user.region
+      region: user.region,
+      faction: user.faction
     });
   }
   /**
@@ -150,7 +154,8 @@ class Controller {
       email: user.email,
       class: user.class,
       realm: user.realm,
-      region: user.region
+      region: user.region,
+      faction: user.faction
     });
   }
 }

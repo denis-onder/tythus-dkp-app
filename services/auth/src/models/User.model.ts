@@ -29,6 +29,10 @@ const userSchema = new Schema({
   region: {
     type: String,
     required: true
+  },
+  faction: {
+    type: String,
+    required: true
   }
 });
 

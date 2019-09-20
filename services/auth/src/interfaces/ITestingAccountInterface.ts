@@ -6,4 +6,5 @@ export default interface ITestingAccountInterface {
   realm?: string;
   region?: string;
   class?: string;
+  faction?: string;
 }

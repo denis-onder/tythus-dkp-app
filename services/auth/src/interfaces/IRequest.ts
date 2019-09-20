@@ -7,5 +7,6 @@ export default interface IRequest extends Request {
     realm: string;
     class: string;
     region: string;
+    faction: string;
   };
 }

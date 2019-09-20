@@ -11,4 +11,6 @@ export default interface IValidationErrorsInterface {
   realmEmpty?: string;
   regionEmpty?: string;
   regionInvalid?: string;
+  factionEmpty?: string;
+  factionInvalid?: string;
 }
