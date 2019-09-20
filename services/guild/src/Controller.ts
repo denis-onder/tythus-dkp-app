@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Guild from "./models/Guild.model";
-import axios from "axios";
 
 class Controller {
   /**
@@ -32,6 +31,7 @@ class Controller {
           }
         ]
       });
+      console.log(newGuild);
       await newGuild.save();
       console.log(`${newGuild.name} - ${newGuild.realm} has been created!`);
       return res.status(200).json(newGuild);

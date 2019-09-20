@@ -17,7 +17,7 @@ export default (req: any, res: Response, next: NextFunction) => {
       return res.status(404).json({ error: "User not found." });
     }
     // TODO: Implement expiration check
-    req.user = user;
+    req.user = user.data;
     next();
   });
 };
