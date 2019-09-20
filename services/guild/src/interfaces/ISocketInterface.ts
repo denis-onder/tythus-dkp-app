@@ -1,4 +1,4 @@
-export default interface ISocketInterface {
+export default interface ISocketInterface extends{
   on(event: string, callback: (data: any) => void);
   emit(event: string, data: any);
 }

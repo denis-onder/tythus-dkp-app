@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import Guild from "./models/Guild.model";
-
+import IRequest from "./interfaces/IRequest";
 class Controller {
   /**
    * Create a new guild
    */
-  public async createGuild(req: any, res: Response) {
+  public async createGuild(req: IRequest, res: Response) {
     try {
       // Check if a guild exists on the same realm with the same name
       const guild = await Guild.findOne({
@@ -42,7 +42,21 @@ class Controller {
   /**
    * Add a new member
    */
-  public addMember(req: Request, res: Response) {}
+  public async addMember(req: Request, res: Response) {
+    // Check if the member is already in another guild
+    const guilds: any = await Guild.find({ region: req.body.user_region });
+    for (let i = 0; i < guilds.length; i++) {
+      for (let j = 0; j < guilds[i].members.length; j++) {
+        if (guilds[i].members[j].name === req.body.user_name) {
+          return res
+            .status(403)
+            .json({
+              error: `User ${req.body.user_name} is already in a guild.`
+            });
+        }
+      }
+    }
+  }
   /**
    * Change member role
    */

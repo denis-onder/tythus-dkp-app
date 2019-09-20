@@ -3,6 +3,7 @@ import { hashSync, compareSync } from "bcrypt";
 import config from "./config";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
+import IRequest from "./interfaces/IRequest";
 
 class Controller {
   /**
@@ -84,7 +85,7 @@ class Controller {
   /**
    * Edit an existing user
    */
-  public async edit(req: any, res: Response) {
+  public async edit(req: IRequest, res: Response) {
     try {
       // Check if an user exists
       const user: any = await User.findById(req.user.id);
@@ -108,7 +109,7 @@ class Controller {
   /**
    * Delete an existing user
    */
-  public async delete(req: any, res: Response) {
+  public async delete(req: IRequest, res: Response) {
     // Check if an user exists
     const user = await User.findById(req.user.id);
     if (!user) {
@@ -120,13 +121,30 @@ class Controller {
   /**
    * Find an user via ID
    */
-  public async findUserViaID(req: any, res: Response) {
+  public async findUserViaID(req: Request, res: Response) {
     // Check if an user exists
     const user: any = await User.findById(req.body.user_id);
     if (!user) {
       return res.status(404).json({ error: "User not found." });
     }
-    res.status(200).json({
+    return res.status(200).json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      class: user.class,
+      realm: user.realm,
+      region: user.region
+    });
+  }
+  /**
+   * Find an user via name
+   */
+  public async findUserViaName(req: Request, res: Response) {
+    const user: any = await User.findOne({ username: req.body.user_name });
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    return res.status(200).json({
       id: user._id,
       username: user.username,
       email: user.email,
