@@ -31,7 +31,6 @@ class Controller {
           }
         ]
       });
-      console.log(newGuild);
       await newGuild.save();
       console.log(`${newGuild.name} - ${newGuild.realm} has been created!`);
       return res.status(200).json(newGuild);
@@ -48,11 +47,9 @@ class Controller {
     for (let i = 0; i < guilds.length; i++) {
       for (let j = 0; j < guilds[i].members.length; j++) {
         if (guilds[i].members[j].name === req.body.user_name) {
-          return res
-            .status(403)
-            .json({
-              error: `User ${req.body.user_name} is already in a guild.`
-            });
+          return res.status(403).json({
+            error: `User ${req.body.user_name} is already in a guild.`
+          });
         }
       }
     }

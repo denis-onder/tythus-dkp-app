@@ -37,6 +37,10 @@ const guildSchema = new Schema({
     type: Array,
     default: ["Guild Master", "Officer", "Member", "Recruit"]
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   members: [memberSchema]
 });
 
