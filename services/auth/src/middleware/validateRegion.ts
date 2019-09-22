@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import apiCaller from "../utils/apiCaller";
+import UserModel from "../models/User.model";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
-    const user = await apiCaller("auth", "post", "/find-name", {
-        username: req.body.username,
+    const user = await UserModel.findOne({
         region: req.body.region,
         realm: req.body.realm,
-        faction: req.body.faction
+        faction: req.body.faction,
+        username: req.body.username
     });
     if (user) {
         return res.status(403).json({

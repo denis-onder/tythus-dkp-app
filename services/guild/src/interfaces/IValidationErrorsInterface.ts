@@ -1,4 +1,4 @@
 export default interface IValidationErrorsInterface {
-  nameEmpty?: string;
-  nameLength?: string;
+    nameEmpty?: string;
+    nameLength?: string;
 }
