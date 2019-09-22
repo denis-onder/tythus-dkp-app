@@ -46,10 +46,10 @@ class Controller {
     /**
      * Add a new member
      */
-    public async addMember(req: Request, res: Response) {
+    public async addMember(req: IRequest, res: Response) {
         try {
             // Check if the guild exists
-            const guild = await Guild.findById(req.body.guild_id);
+            const guild: any = await Guild.findById(req.body.guild_id);
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
@@ -57,12 +57,16 @@ class Controller {
             const response = await apiCaller("auth", "post", "/find-email", {
                 email: req.body.email
             });
-            const user = await response.data;
+            if (response.status !== 200) {
+                return res.status(404).json(response.data);
+            }
+            const user = response.data;
             // Check if the member is already in another guild
             const guilds: any = await Guild.find({
-                region: user.region
+                region: req.user.region,
+                faction: req.user.faction
             });
-            // Loop over all guilds of the matching region
+            // Loop over all guilds of the matching region and faction
             for (let i = 0; i < guilds.length; i++) {
                 // Loop over the members of the guild and check if the member is within the guild
                 for (let j = 0; j < guilds[i].members.length; j++) {
@@ -74,7 +78,14 @@ class Controller {
                     }
                 }
             }
-            return res.status(200).json(user);
+            //  Add the new guild member
+            guild.members.push({
+                name: user.username,
+                role: guild.roles[guild.roles.length - 1],
+                class: user.class
+            });
+            await guild.save();
+            return res.status(200).json(guild.members);
         } catch (error) {
             console.error(error);
         }
