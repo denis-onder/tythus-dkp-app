@@ -54,23 +54,22 @@ class Controller {
                 return res.status(404).json({ error: "Guild not found." });
             }
             // Check if the user exists
-            const response = await apiCaller("auth", "get", "/find-email", {
+            const response = await apiCaller("auth", "post", "/find-email", {
                 email: req.body.email
             });
             const user = await response.data;
-            console.log(user);
             // Check if the member is already in another guild
             const guilds: any = await Guild.find({
-                region: req.body.region
+                region: user.region
             });
             // Loop over all guilds of the matching region
             for (let i = 0; i < guilds.length; i++) {
                 // Loop over the members of the guild and check if the member is within the guild
                 for (let j = 0; j < guilds[i].members.length; j++) {
-                    if (guilds[i].members[j].email === req.body.email) {
-                        // Return an error message if the member is within a guild
+                    if (guilds[i].members[j].name === user.username) {
+                        // Return an error message if themember is within a guild
                         return res.status(403).json({
-                            error: `User ${req.body.user_name} is already in a guild.`
+                            error: `User ${user.username} is already in a guild.`
                         });
                     }
                 }

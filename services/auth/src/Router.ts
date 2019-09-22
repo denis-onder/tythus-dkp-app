@@ -2,8 +2,7 @@ import { Application, Request, Response } from "express";
 import Controller from "./Controller";
 import validateInput from "./middleware/validateInput";
 import validateToken from "./middleware/validateToken";
-import verifyUserExistence from "./middleware/verifyUserExistence";
-import validateRegion from "./middleware/validateRegion";
+import checkForUser from "./middleware/checkForUser";
 import IRequest from "./interfaces/IRequest";
 
 class Router {
@@ -11,14 +10,11 @@ class Router {
         app.post(
             "/register",
             validateInput,
-            verifyUserExistence,
+            checkForUser,
             (req: Request, res: Response) => Controller.register(req, res)
         );
-        app.post(
-            "/login",
-            validateInput,
-            validateRegion,
-            (req: Request, res: Response) => Controller.login(req, res)
+        app.post("/login", validateInput, (req: Request, res: Response) =>
+            Controller.login(req, res)
         );
         app.put(
             "/edit",
