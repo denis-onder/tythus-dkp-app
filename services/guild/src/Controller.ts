@@ -61,10 +61,26 @@ class Controller {
                 return res.status(404).json(response.data);
             }
             const user = response.data;
+            // Check if the region, faction and realm match with between the guild and the user
+            if (user.region !== guild.region) {
+                return res.status(403).json({
+                    error: "Region mismatch between the user and the guild."
+                });
+            }
+            if (user.realm !== guild.realm) {
+                return res.status(403).json({
+                    error: "Realm mismatch between the user and the guild."
+                });
+            }
+            if (user.faction !== guild.faction) {
+                return res.status(403).json({
+                    error: "Faction mismatch between the user and the guild."
+                });
+            }
             // Check if the member is already in another guild
             const guilds: any = await Guild.find({
-                region: req.user.region,
-                faction: req.user.faction
+                region: guild.region,
+                faction: guild.faction
             });
             // Loop over all guilds of the matching region and faction
             for (let i = 0; i < guilds.length; i++) {
@@ -85,6 +101,9 @@ class Controller {
                 class: user.class
             });
             await guild.save();
+            console.log(
+                `${user.username} added to ${guild.name} - ${guild.region} ${guild.realm}`
+            );
             return res.status(200).json(guild.members);
         } catch (error) {
             console.error(error);
