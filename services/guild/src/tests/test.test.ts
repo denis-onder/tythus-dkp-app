@@ -73,9 +73,7 @@ describe("Guild Service", () => {
                 email: newMember.email
             });
             expect(res.status).to.eq(200);
-            expect(res.data)
-                .to.be.an("array")
-                .that.includes.any.keys("DKP, _id, name, role, class");
+            expect(res.data).to.be.an("array");
         });
     });
 });

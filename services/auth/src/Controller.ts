@@ -33,8 +33,7 @@ class Controller {
             res.status(200).json(newUser);
             console.log(`User ${newUser.username} has registered.`);
         } catch (error) {
-            console.error(error);
-            res.status(500).json(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -83,7 +82,7 @@ class Controller {
                 }
             );
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -108,7 +107,7 @@ class Controller {
             await user.save();
             res.status(200).json(user);
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -124,7 +123,7 @@ class Controller {
             await user.remove();
             res.status(200).json({ deleted: true, timestamp: Date.now() });
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -147,7 +146,7 @@ class Controller {
                 faction: user.faction
             });
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -171,7 +170,7 @@ class Controller {
                 faction: user.faction
             });
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -195,7 +194,7 @@ class Controller {
                 faction: user.faction
             });
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
 }

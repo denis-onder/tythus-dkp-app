@@ -40,7 +40,7 @@ class Controller {
             );
             return res.status(200).json(newGuild);
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
@@ -106,13 +106,36 @@ class Controller {
             );
             return res.status(200).json(guild.members);
         } catch (error) {
-            console.error(error);
+            return res.status(500).json(error);
         }
     }
     /**
      * Change member role
      */
-    public changeRole(req: Request, res: Response) {}
+    public async changeRole(req: Request, res: Response) {
+        try {
+            // Check if the guild exists
+            const guild: any = await Guild.findById(req.body.guild_id);
+            if (!guild) {
+                return res.status(404).json({ error: "Guild not found." });
+            }
+            // Check if the user is a part of the guild
+            const isInGuild = await guild.members.some(member => {
+                member._id === req.body.user_id;
+            });
+            console.log(isInGuild);
+            if (!isInGuild) {
+                return res.status(404).json({
+                    error: `${req.body.user_id} is not in the guild.`
+                });
+            }
+            /* testing */ return res
+                .status(200)
+                .json(`User ${req.body.user_name} found in guild.`);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
     /**
      * Modify DKP values of a member
      */
