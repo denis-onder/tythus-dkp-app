@@ -114,14 +114,16 @@ class Controller {
      */
     public async changeRole(req: Request, res: Response) {
         try {
+            let memberIndex;
             // Check if the guild exists
             const guild: any = await Guild.findById(req.body.guild_id);
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
             // Check if the user is a part of the guild
-            const isInGuild = await guild.members.some(member => {
-                member._id === req.body.user_id;
+            const isInGuild = await guild.members.find((member, index) => {
+                memberIndex = index;
+                return member._id == req.body.user_id;
             });
             console.log(isInGuild);
             if (!isInGuild) {
@@ -129,9 +131,16 @@ class Controller {
                     error: `${req.body.user_id} is not in the guild.`
                 });
             }
-            /* testing */ return res
-                .status(200)
-                .json(`User ${req.body.user_name} found in guild.`);
+            // Check if the role is in the roles array of the guild
+            if (!guild.roles.includes(req.body.role)) {
+                return res.status(404).json({
+                    error: `Role ${req.body.role} is not listed in the guild.`
+                });
+            }
+            // If the user is in the guild, assign the new role
+            guild.members[memberIndex].role = req.body.role;
+            await guild.save();
+            return res.status(200).json(guild.members);
         } catch (error) {
             return res.status(500).json(error);
         }
