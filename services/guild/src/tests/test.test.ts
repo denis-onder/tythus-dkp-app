@@ -24,7 +24,7 @@ const newMember = {
     realm: "Sylvanas"
 };
 
-before(() => {
+before(async () => {
     checkPorts((err, data) => {
         if (err) {
             console.log("Starting up the server...");
@@ -32,12 +32,8 @@ before(() => {
         }
         server.startService();
     });
+    token = await getToken(testAccount.email, testAccount.password);
 });
-
-beforeEach(
-    async () =>
-        (token = await getToken(testAccount.email, testAccount.password))
-);
 
 describe("Guild Service", () => {
     describe("Create Guild", () => {
