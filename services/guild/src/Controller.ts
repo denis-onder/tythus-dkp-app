@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Guild from "./models/Guild.model";
 import IRequest from "./interfaces/IRequest";
 import apiCaller from "./utils/apiCaller";
+
 class Controller {
     /**
      * Create a new guild
@@ -125,7 +126,6 @@ class Controller {
                 memberIndex = index;
                 return member._id == req.body.user_id;
             });
-            console.log(isInGuild);
             if (!isInGuild) {
                 return res.status(404).json({
                     error: `${req.body.user_id} is not in the guild.`
@@ -148,11 +148,79 @@ class Controller {
     /**
      * Modify DKP values of a member
      */
-    public modDKP(req: Request, res: Response) {}
+    public async modDKP(req: Request, res: Response) {
+        try {
+            let memberIndex;
+            // Check if the guild exists
+            const guild: any = await Guild.findById(req.body.guild_id);
+            if (!guild) {
+                return res.status(404).json({ error: "Guild not found." });
+            }
+            // Check if the user is a part of the guild
+            const isInGuild = await guild.members.find((member, index) => {
+                memberIndex = index;
+                return member._id == req.body.user_id;
+            });
+            if (!isInGuild) {
+                return res.status(404).json({
+                    error: `${req.body.user_id} is not in the guild.`
+                });
+            }
+            // If the user in in the guild, assign the new DKP value
+            guild.members[memberIndex].DKP = req.body.dkp;
+            await guild.save();
+            return res.status(200).json(guild.members);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
     /**
      * Remove an existing member
      */
-    public removeMember(req: Request, res: Response) {}
+    public async removeMember(req: Request, res: Response) {
+        try {
+            let memberIndex;
+            // Check if the guild exists
+            const guild: any = await Guild.findById(req.body.guild_id);
+            if (!guild) {
+                return res.status(404).json({ error: "Guild not found." });
+            }
+            // Check if the user is a part of the guild
+            const isInGuild = await guild.members.find((member, index) => {
+                memberIndex = index;
+                return member._id == req.body.user_id;
+            });
+            if (!isInGuild) {
+                return res.status(404).json({
+                    error: `${req.body.user_id} is not in the guild.`
+                });
+            }
+            // If the user is in the guild, remove it
+            guild.members.splice(memberIndex, 1);
+            await guild.save();
+            return res.status(200).json(guild.members);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+    /**
+     * Remove a guild
+     */
+    public async removeGuild(req: Request, res: Response) {
+        try {
+            // Check if a guild exists
+            const guild = await Guild.findById(req.body.guild_id);
+            // If the guild doesn't exist, send out an error
+            if (!guild) {
+                return res.status(404).json({ error: "Guild not found." });
+            }
+            // Else, remove it
+            await guild.remove();
+            res.status(200).json({ deleted: true, timestamp: Date.now() });
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
 }
 
 export default new Controller();
