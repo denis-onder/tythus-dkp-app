@@ -3,7 +3,6 @@ import Controller from "./Controller";
 import validateToken from "./middleware/validateToken";
 import IRequest from "./interfaces/IRequest";
 import validateInput from "./middleware/validateInput";
-// import validateInput from "./middleware/validateInput";
 
 class Router {
     public initialize(app: Application) {
@@ -26,6 +25,16 @@ class Router {
         );
         app.put("/role", validateToken, (req: Request, res: Response) =>
             Controller.changeRole(req, res)
+        );
+        app.delete(
+            "/remove-guild",
+            validateToken,
+            (req: Request, res: Response) => Controller.removeGuild(req, res)
+        );
+        app.delete(
+            "/remove-member",
+            validateToken,
+            (req: Request, res: Response) => Controller.removeMember(req, res)
         );
     }
 }

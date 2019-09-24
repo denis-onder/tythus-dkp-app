@@ -54,28 +54,28 @@ class Controller {
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
-            // Check if the user exists
+            // Check if the member exists
             const response = await apiCaller("auth", "post", "/find-email", {
                 email: req.body.email
             });
             if (response.status !== 200) {
                 return res.status(404).json(response.data);
             }
-            const user = response.data;
-            // Check if the region, faction and realm match with between the guild and the user
-            if (user.region !== guild.region) {
+            const member = response.data;
+            // Check if the region, faction and realm match with between the guild and the member
+            if (member.region !== guild.region) {
                 return res.status(403).json({
-                    error: "Region mismatch between the user and the guild."
+                    error: "Region mismatch between the member and the guild."
                 });
             }
-            if (user.realm !== guild.realm) {
+            if (member.realm !== guild.realm) {
                 return res.status(403).json({
-                    error: "Realm mismatch between the user and the guild."
+                    error: "Realm mismatch between the member and the guild."
                 });
             }
-            if (user.faction !== guild.faction) {
+            if (member.faction !== guild.faction) {
                 return res.status(403).json({
-                    error: "Faction mismatch between the user and the guild."
+                    error: "Faction mismatch between the member and the guild."
                 });
             }
             // Check if the member is already in another guild
@@ -87,23 +87,23 @@ class Controller {
             for (let i = 0; i < guilds.length; i++) {
                 // Loop over the members of the guild and check if the member is within the guild
                 for (let j = 0; j < guilds[i].members.length; j++) {
-                    if (guilds[i].members[j].name === user.username) {
+                    if (guilds[i].members[j].name === member.username) {
                         // Return an error message if themember is within a guild
                         return res.status(403).json({
-                            error: `User ${user.username} is already in a guild.`
+                            error: `${member.username} is already in a guild.`
                         });
                     }
                 }
             }
             //  Add the new guild member
             guild.members.push({
-                name: user.username,
+                name: member.username,
                 role: guild.roles[guild.roles.length - 1],
-                class: user.class
+                class: member.class
             });
             await guild.save();
             console.log(
-                `${user.username} added to ${guild.name} - ${guild.region} ${guild.realm}`
+                `${member.username} added to ${guild.name} - ${guild.region} ${guild.realm}`
             );
             return res.status(200).json(guild.members);
         } catch (error) {
@@ -121,14 +121,14 @@ class Controller {
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
-            // Check if the user is a part of the guild
+            // Check if the member is a part of the guild
             const isInGuild = await guild.members.find((member, index) => {
                 memberIndex = index;
-                return member._id == req.body.user_id;
+                return member._id == req.body.member_id;
             });
             if (!isInGuild) {
                 return res.status(404).json({
-                    error: `${req.body.user_id} is not in the guild.`
+                    error: `${req.body.member_id} is not in the guild.`
                 });
             }
             // Check if the role is in the roles array of the guild
@@ -137,7 +137,7 @@ class Controller {
                     error: `Role ${req.body.role} is not listed in the guild.`
                 });
             }
-            // If the user is in the guild, assign the new role
+            // If the member is in the guild, assign the new role
             guild.members[memberIndex].role = req.body.role;
             await guild.save();
             return res.status(200).json(guild.members);
@@ -156,17 +156,17 @@ class Controller {
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
-            // Check if the user is a part of the guild
+            // Check if the member is a part of the guild
             const isInGuild = await guild.members.find((member, index) => {
                 memberIndex = index;
-                return member._id == req.body.user_id;
+                return member._id == req.body.member_id;
             });
             if (!isInGuild) {
                 return res.status(404).json({
-                    error: `${req.body.user_id} is not in the guild.`
+                    error: `${req.body.member_id} is not in the guild.`
                 });
             }
-            // If the user in in the guild, assign the new DKP value
+            // If the member in in the guild, assign the new DKP value
             guild.members[memberIndex].DKP = req.body.dkp;
             await guild.save();
             return res.status(200).json(guild.members);
@@ -185,17 +185,17 @@ class Controller {
             if (!guild) {
                 return res.status(404).json({ error: "Guild not found." });
             }
-            // Check if the user is a part of the guild
+            // Check if the member is a part of the guild
             const isInGuild = await guild.members.find((member, index) => {
                 memberIndex = index;
-                return member._id == req.body.user_id;
+                return member._id == req.body.member_id;
             });
             if (!isInGuild) {
                 return res.status(404).json({
-                    error: `${req.body.user_id} is not in the guild.`
+                    error: `${req.body.member_id} is not in the guild.`
                 });
             }
-            // If the user is in the guild, remove it
+            // If the member is in the guild, remove it
             guild.members.splice(memberIndex, 1);
             await guild.save();
             return res.status(200).json(guild.members);
