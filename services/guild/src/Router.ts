@@ -1,4 +1,4 @@
-import { Application, Request, Response } from "express";
+import { Application, Response } from "express";
 import Controller from "./Controller";
 import validateToken from "./middleware/validateToken";
 import IRequest from "./interfaces/IRequest";
@@ -11,20 +11,24 @@ class Router {
     app.post("/add-member", validateToken, (req: IRequest, res: Response) =>
       Controller.addMember(req, res)
     );
-    app.delete("/remove-member", validateToken, (req: Request, res: Response) =>
-      Controller.removeMember(req, res)
+    app.delete(
+      "/remove-member",
+      validateToken,
+      (req: IRequest, res: Response) => Controller.removeMember(req, res)
     );
-    app.put("/dkp", validateToken, (req: Request, res: Response) =>
+    app.put("/dkp", validateToken, (req: IRequest, res: Response) =>
       Controller.modDKP(req, res)
     );
-    app.put("/role", validateToken, (req: Request, res: Response) =>
+    app.put("/role", validateToken, (req: IRequest, res: Response) =>
       Controller.changeRole(req, res)
     );
-    app.delete("/remove-guild", validateToken, (req: Request, res: Response) =>
+    app.delete("/remove-guild", validateToken, (req: IRequest, res: Response) =>
       Controller.removeGuild(req, res)
     );
-    app.delete("/remove-member", validateToken, (req: Request, res: Response) =>
-      Controller.removeMember(req, res)
+    app.delete(
+      "/remove-member",
+      validateToken,
+      (req: IRequest, res: Response) => Controller.removeMember(req, res)
     );
   }
 }
