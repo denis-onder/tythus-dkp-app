@@ -1,9 +1,15 @@
 export default interface IConfigInterface {
   server: {
-    port: Number;
+    port: number;
+  };
+  auth: {
+    port: number;
+  };
+  guild: {
+    port: number;
   };
   database: {
-    port: Number;
+    port: number;
   };
-  environment: String;
+  environment: string;
 }

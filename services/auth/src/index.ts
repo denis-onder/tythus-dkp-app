@@ -1,18 +1,19 @@
 import Server from "./Server";
 import config from "./config";
 import connectDB from "./config/database";
-import ISocketInterface from "./interfaces/ISocketInterface";
+import io from "socket.io-client";
 
 class AuthService extends Server {
   constructor() {
     super();
     this.serverName = "Authentication";
+    this.socket = io(`http://localhost:${config.gateway.port}`);
   }
   private sockets() {
-    console.log("Sockets established!");
-    this.io.on("connection", (socket: ISocketInterface) => {
-      // Socket declarations for the authentication service go here
-    });
+    // Socket declarations for the authentication service go here
+    this.socket.on("connect", () =>
+      this.socket.emit("service_connected", this.serverName)
+    );
   }
   public startService() {
     // tslint:disable-next-line: member-ordering

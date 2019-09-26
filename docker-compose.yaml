@@ -12,6 +12,7 @@ services:
     build: "./services/auth"
     environment:
       - DB_PORT=9101
+      - GATEWAY_PORT=9000
     depends_on:
       - "auth_db"
     ports:
@@ -20,6 +21,7 @@ services:
     build: "./services/guild"
     environment:
       - DB_PORT=9102
+      - GATEWAY_PORT=9000
     depends_on:
       - "guild_db"
     ports:
@@ -28,3 +30,7 @@ services:
     build: "./services/gateway"
     ports:
       - "9000:9000"
+    environment:
+      - SERVER_PORT=9000
+      - AUTH_PORT=9001
+      - GUILD_PORT=9002

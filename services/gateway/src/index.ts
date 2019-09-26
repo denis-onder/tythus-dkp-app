@@ -11,6 +11,9 @@ class Gateway extends Server {
     console.log("Sockets established!");
     this.io.on("connection", (socket: ISocketInterface) => {
       // Socket declarations for the gateway go here
+      socket.on("service_connected", name =>
+        console.log(`${name} service connected to the gateway.`)
+      );
     });
   }
   public startService() {

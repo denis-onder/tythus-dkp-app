@@ -1,4 +1,7 @@
 export default interface IConfigInterface {
+  gateway: {
+    port: number;
+  };
   server: {
     port: number;
   };

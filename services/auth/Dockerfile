@@ -8,6 +8,8 @@ ENV NODE_ENV=container
 
 ENV SERVER_PORT=9001
 
+ENV GATEWAY_PORT=9000
+
 RUN npm install
 
 CMD [ "npm", "start" ]

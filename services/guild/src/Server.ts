@@ -1,17 +1,16 @@
 import express from "express";
 import http from "http";
 import applyMiddleware from "./middleware";
-import io from "socket.io";
+import ISocketInterface from "./interfaces/ISocketInterface";
 
 class Server {
   public app: express.Application;
   public serverName: String;
-  public io;
   public server;
+  public socket: ISocketInterface;
   constructor() {
     this.app = express();
     this.server = new http.Server(this.app);
-    this.io = io(this.server);
   }
   private init() {
     console.log("Initializing server...");

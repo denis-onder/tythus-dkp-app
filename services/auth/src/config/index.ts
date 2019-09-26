@@ -5,6 +5,9 @@ import IConfigInterface from "../interfaces/IConfigInterface";
 require("dotenv").config();
 
 const config: IConfigInterface = {
+  gateway: {
+    port: parseInt(process.env.GATEWAY_PORT) || 8000
+  },
   server: {
     port: parseInt(process.env.SERVER_PORT) || 8001
   },
