@@ -25,6 +25,10 @@ const guildSchema = new Schema({
     type: String,
     required: true
   },
+  owner: {
+    type: String,
+    required: true
+  },
   realm: {
     type: String,
     required: true
