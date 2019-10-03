@@ -4,5 +4,8 @@
     "test": "npm run test:auth",
     "test:auth": "scripts/compile_auth.sh && cd ./services/auth && npm test",
     "test:guild": "scripts/compile_guild.sh && cd ./services/guild && npm test"
+  },
+  "dependencies": {
+    "pm2": "^3.5.1"
   }
 }
