@@ -9,7 +9,12 @@ const Landing: React.FC = () => {
         <h4 className="landing_wrapper_tagline">
           A WoW guild and DKP management app.
         </h4>
-        <button className="landing_wrapper_button">Get Started</button>
+        <button
+          className="landing_wrapper_button"
+          onClick={(): string => (window.location.href = "/register")}
+        >
+          Get Started
+        </button>
         <i
           className="fa fa-github landing_wrapper_github"
           aria-hidden="true"
