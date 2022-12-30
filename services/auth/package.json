@@ -38,7 +38,7 @@
     "@types/socket.io-client": "^1.4.32",
     "@types/tcp-port-used": "^1.0.0",
     "chai": "^4.2.0",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "ts-node-dev": "^1.0.0-pre.42",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2",
